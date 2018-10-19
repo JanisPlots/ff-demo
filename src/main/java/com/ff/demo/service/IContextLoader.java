@@ -11,5 +11,5 @@ public interface IContextLoader {
 
     LoanContext loadNewContext(String clientIP, BigDecimal amount, int termDays);
 
-    LoanContext loadExistingContext(Long loanId);
+    LoanContext loadExistingContext(Long loanId, int termDays);
 }

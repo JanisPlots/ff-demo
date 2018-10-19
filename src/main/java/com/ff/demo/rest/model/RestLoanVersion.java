@@ -2,6 +2,7 @@ package com.ff.demo.rest.model;
 
 import com.ff.demo.dal.model.LoanVersion;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class RestLoanVersion {
@@ -9,6 +10,7 @@ public class RestLoanVersion {
     private Long id;
     private int termDays;
     private LoanVersion.LoanVersionType loanVersionType;
+    private BigDecimal interestFactor;
     private Date createdAt;
 
 
@@ -42,5 +44,13 @@ public class RestLoanVersion {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public BigDecimal getInterestFactor() {
+        return interestFactor;
+    }
+
+    public void setInterestFactor(BigDecimal interestFactor) {
+        this.interestFactor = interestFactor;
     }
 }

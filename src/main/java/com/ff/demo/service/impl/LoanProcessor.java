@@ -23,7 +23,10 @@ public class LoanProcessor implements ILoanProcessor {
     private IPersistenceService iPersistenceService;
 
     @Autowired
-    private ICalculationService iCalculationService;
+    private NewLoanCalculationService newLoanCalculationService;
+
+    @Autowired
+    private ExtendLoanCalculationService extendLoanCalculationService;
 
 
     @Override
@@ -39,8 +42,8 @@ public class LoanProcessor implements ILoanProcessor {
             }
         }
 
-        if(loanContext.isRejected()){
-            iCalculationService.doCalculate(loanContext);
+        if(!loanContext.isRejected()){
+            newLoanCalculationService.doCalculate(loanContext);
         }
 
         iPersistenceService.doPersist(loanContext);
@@ -49,8 +52,10 @@ public class LoanProcessor implements ILoanProcessor {
     }
 
     @Override
-    public LoanResult doExtend(Long loanId) {
-        LoanContext loanContext = iContextLoader.loadExistingContext(loanId);
+    public LoanResult doExtend(Long loanId, int termDays) {
+        LoanContext loanContext = iContextLoader.loadExistingContext(loanId, termDays);
+
+        extendLoanCalculationService.doCalculate(loanContext);
 
         iPersistenceService.doPersist(loanContext);
 

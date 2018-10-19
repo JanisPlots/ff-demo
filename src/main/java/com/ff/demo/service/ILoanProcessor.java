@@ -11,5 +11,5 @@ public interface ILoanProcessor {
 
     LoanResult doApply(String clientIP, BigDecimal amount, int termDays);
 
-    LoanResult doExtend(Long loanId);
+    LoanResult doExtend(Long loanId, int termDays);
 }

@@ -4,6 +4,7 @@ import com.ff.demo.dal.model.Client;
 import com.ff.demo.dal.repository.ClientRepository;
 import com.ff.demo.dal.repository.LoanRepository;
 import com.ff.demo.rest.model.RestLoan;
+import com.ff.demo.rest.model.RestLoanExtendRequest;
 import com.ff.demo.rest.model.RestLoanRequest;
 import com.ff.demo.rest.model.RestLoanResponse;
 import com.ff.demo.service.ILoanProcessor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -34,8 +36,6 @@ public class LoanController {
     @Autowired
     private ObjectMapper mapper;
 
-
-
     @PostMapping("/loans/apply")
     @ApiOperation(value = "Apply to new loan")
     public RestLoanResponse apply(
@@ -53,9 +53,11 @@ public class LoanController {
 
     @PostMapping("/loans/{loanId}/extend")
     @ApiOperation(value = "Extend term of existing loan")
-    public RestLoanResponse extend(@PathVariable Long loanId) {
+    public RestLoanResponse extend(
+            @PathVariable Long loanId,
+            @Valid @RequestBody RestLoanExtendRequest loanExtendRequest) {
 
-        LoanResult loanResult = iLoanProcessor.doExtend(loanId);
+        LoanResult loanResult = iLoanProcessor.doExtend(loanId, loanExtendRequest.getTermDays());
 
         return new RestLoanResponse(loanResult.isAccepted());
     }
@@ -66,6 +68,9 @@ public class LoanController {
             HttpServletRequest request
     ) {
         Client client = clientRepository.findByIp(request.getRemoteAddr());
+        if(client == null){
+            return Collections.emptyList();
+        }
         return mapper.map(
                 loanRepository.findByClientId(client.getId()),
                 RestLoan.class

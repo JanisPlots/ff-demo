@@ -1,7 +1,10 @@
+# Demo loan REST API
+Boilerplate taken from 
+[here](https://github.com/callicoder/spring-boot-postgresql-jpa-hibernate-rest-api-demo)
 
 ## Live demo
 
-[http://192.168.99.102/swagger-ui.html](http://192.168.99.102/swagger-ui.html)
+[http://178.128.39.184/swagger-ui.html](http://178.128.39.184/swagger-ui.html)
 
 
 ## Run application

@@ -64,7 +64,7 @@ public class LoanContextLoader implements IContextLoader {
     }
 
     @Override
-    public LoanContext loadExistingContext(Long loanId) {
+    public LoanContext loadExistingContext(Long loanId, int termDays) {
 
         Optional<Loan> loanOpt = loanRepository.findById(loanId);
         if(!loanOpt.isPresent()){
@@ -76,13 +76,14 @@ public class LoanContextLoader implements IContextLoader {
         LoanVersion newLoanVersion = new LoanVersion();
         newLoanVersion.setLoanVersionType(LoanVersion.LoanVersionType.EXTENDED);
         newLoanVersion.setLoan(loan);
+        newLoanVersion.setTermDays(termDays);
         loan.addVersion(newLoanVersion);
 
         LoanContext loanContext = new LoanContext();
+        loanContext.setLoan(loan);
         loadProductDefinition(loanContext);
 
         loadCommons(loanContext);
-        loanContext.setLoan(loan);
 
         return loanContext;
     }
@@ -94,10 +95,10 @@ public class LoanContextLoader implements IContextLoader {
         loanContext.setMaxUwTimeMaxAmount(LocalTime.parse( "00:00:00" ));
         loanContext.setMinUwTimeMaxAmount(LocalTime.parse( "08:00:00" ));
         loanContext.setMaxLoansPerDay(3);
-        loanContext.setInterestFactor(BigDecimal.valueOf(6));
-        loanContext.setExtensionInterestFactorPerWeek(BigDecimal.valueOf(1.5));
+        loanContext.setInterestFactor(BigDecimal.valueOf(1.25));
+        loanContext.setExtensionInterestFactor(BigDecimal.valueOf(1.5));
+        loanContext.setExtensionInterestPerPeriodDays(7);
         loanContext.setRejected(false);
-        loanContext.setPaymentFrequencyDays(7);
     }
 
     private void loadCommons(LoanContext loanContext){

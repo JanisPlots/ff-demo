@@ -34,9 +34,8 @@ public class LoanVersion extends AuditModel {
     @Column(length = 8)
     private LoanVersionType loanVersionType;
 
-    @OneToMany(mappedBy = "loanVersion", cascade={CascadeType.ALL})
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Invoice> invoices;
+    @Column(columnDefinition = "decimal")
+    private BigDecimal interestFactor;
 
 
     public Long getId() {
@@ -71,19 +70,12 @@ public class LoanVersion extends AuditModel {
         this.loanVersionType = loanVersionType;
     }
 
-    public List<Invoice> getInvoices() {
-        return invoices;
+    public BigDecimal getInterestFactor() {
+        return interestFactor;
     }
 
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
-    public void addInvoice(Invoice invoice){
-        if(invoices == null){
-            invoices = new ArrayList<>();
-        }
-        invoices.add(invoice);
+    public void setInterestFactor(BigDecimal interestFactor) {
+        this.interestFactor = interestFactor;
     }
 
     public enum LoanVersionType{

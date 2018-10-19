@@ -19,8 +19,8 @@ public class LoanContext {
     private int maxLoansPerDay;
     private DateTime dateNow;
     private BigDecimal interestFactor;
-    private BigDecimal extensionInterestFactorPerWeek;
-    private int paymentFrequencyDays;
+    private BigDecimal extensionInterestFactor;
+    private int extensionInterestPerPeriodDays;
 
 
     public List<Loan> getAllLoans() {
@@ -95,19 +95,19 @@ public class LoanContext {
         this.interestFactor = interestFactor;
     }
 
-    public BigDecimal getExtensionInterestFactorPerWeek() {
-        return extensionInterestFactorPerWeek;
+    public BigDecimal getExtensionInterestFactor() {
+        return extensionInterestFactor;
     }
 
-    public void setExtensionInterestFactorPerWeek(BigDecimal extensionInterestFactorPerWeek) {
-        this.extensionInterestFactorPerWeek = extensionInterestFactorPerWeek;
+    public void setExtensionInterestFactor(BigDecimal extensionInterestFactor) {
+        this.extensionInterestFactor = extensionInterestFactor;
     }
 
-    public int getPaymentFrequencyDays() {
-        return paymentFrequencyDays;
+    public int getExtensionInterestPerPeriodDays() {
+        return extensionInterestPerPeriodDays;
     }
 
-    public void setPaymentFrequencyDays(int paymentFrequencyDays) {
-        this.paymentFrequencyDays = paymentFrequencyDays;
+    public void setExtensionInterestPerPeriodDays(int extensionInterestPerPeriodDays) {
+        this.extensionInterestPerPeriodDays = extensionInterestPerPeriodDays;
     }
 }
