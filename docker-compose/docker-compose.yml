@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  dbpostgresql:
+    container_name: dbpostgresql
+    build: ./postgresql/
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  loan-rest-api:
+      container_name: loan-rest
+      build: ./loan-rest-api/
+      restart: unless-stopped
+      external_links:
+        - dbpostgresql:dbpostgresql
+      environment:
+        MIDDLEWARE_DATABASE_PASSWORD: "groceries"
+        JAVA_OPTS: >
+          -Xmx256M
+          -Dspring.datasource.url=jdbc:postgresql://dbpostgresql:5432/postgres_demo
+          -Dspring.datasource.username=postgres
+          -Dspring.datasource.password=postgres
+          -Dspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+      ports:
+        - "80:8080"
