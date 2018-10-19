@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PersistenceService implements IPersistenceService {
+public class LoanPersistenceService implements IPersistenceService {
 
     @Autowired
     private LoanRepository loanRepository;
