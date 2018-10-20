@@ -30,9 +30,6 @@ public class UnderwritingRuleTest extends BaseSpringTest {
     @Autowired
     private UWTimeValidator uwTimeValidator;
 
-    @Autowired
-    private IContextLoader iContextLoader;
-
     @Test
     public void maxAmountValidationTest() {
         {
@@ -44,7 +41,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
             );
             uwMaxAmountValidator.doValidate(loanContext);
 
-            Assert.assertTrue(loanContext.isRejected());
+            Assert.assertFalse(loanContext.isAccepted());
         }
 
         {
@@ -55,7 +52,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
             );
             uwMaxAmountValidator.doValidate(loanContext);
 
-            Assert.assertFalse(loanContext.isRejected());
+            Assert.assertTrue(loanContext.isAccepted());
         }
     }
 
@@ -87,7 +84,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
 
         {
             LoanContext loanContext = iContextLoader.loadNewContext(
-                    "0.0.0.0",
+                    "4.4.0.0",
                     BigDecimal.valueOf(1000),
                     30
             );
@@ -95,7 +92,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
 
             uwMaxLoansValidator.doValidate(loanContext);
 
-            Assert.assertTrue(loanContext.isRejected());
+            Assert.assertFalse(loanContext.isAccepted());
         }
 
 
@@ -105,7 +102,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
             DateTimeUtils.setCurrentMillisFixed(date.getMillis());
 
             LoanContext loanContext = iContextLoader.loadNewContext(
-                    "0.0.0.0",
+                    "4.4.0.0",
                     BigDecimal.valueOf(1000),
                     30
             );
@@ -114,7 +111,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
 
             uwMaxLoansValidator.doValidate(loanContext);
 
-            Assert.assertFalse(loanContext.isRejected());
+            Assert.assertTrue(loanContext.isAccepted());
         }
 
         DateTimeUtils.setCurrentMillisSystem();
@@ -134,7 +131,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
             );
             uwTimeValidator.doValidate(loanContext);
 
-            Assert.assertTrue(loanContext.isRejected());
+            Assert.assertFalse(loanContext.isAccepted());
         }
 
         {
@@ -148,7 +145,7 @@ public class UnderwritingRuleTest extends BaseSpringTest {
             );
             uwTimeValidator.doValidate(loanContext);
 
-            Assert.assertFalse(loanContext.isRejected());
+            Assert.assertTrue(loanContext.isAccepted());
         }
 
         DateTimeUtils.setCurrentMillisSystem();

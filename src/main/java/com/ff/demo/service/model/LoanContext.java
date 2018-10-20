@@ -12,7 +12,7 @@ public class LoanContext {
     private List<Loan> allLoans;
     private Loan loan;
 
-    private boolean rejected;
+    private boolean accepted;
     private BigDecimal maxAmount;
     private LocalTime minUwTimeMaxAmount;
     private LocalTime maxUwTimeMaxAmount;
@@ -21,6 +21,8 @@ public class LoanContext {
     private BigDecimal interestFactor;
     private BigDecimal extensionInterestFactor;
     private int extensionInterestPerPeriodDays;
+    private String rejectionReason;
+    private Process process;
 
 
     public List<Loan> getAllLoans() {
@@ -39,12 +41,12 @@ public class LoanContext {
         this.loan = loan;
     }
 
-    public boolean isRejected() {
-        return rejected;
+    public boolean isAccepted() {
+        return accepted;
     }
 
-    public void setRejected(boolean rejected) {
-        this.rejected = rejected;
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 
     public BigDecimal getMaxAmount() {
@@ -109,5 +111,26 @@ public class LoanContext {
 
     public void setExtensionInterestPerPeriodDays(int extensionInterestPerPeriodDays) {
         this.extensionInterestPerPeriodDays = extensionInterestPerPeriodDays;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }
+
+    public enum Process{
+        NEW,
+        EXTENDED
     }
 }

@@ -48,7 +48,7 @@ public class LoanController {
                 loanRequest.getAmount(),
                 loanRequest.getTermDays()
         );
-        return new RestLoanResponse(loanResult.isAccepted());
+        return mapper.map(loanResult, RestLoanResponse.class);
     }
 
     @PostMapping("/loans/{loanId}/extend")
@@ -59,7 +59,7 @@ public class LoanController {
 
         LoanResult loanResult = iLoanProcessor.doExtend(loanId, loanExtendRequest.getTermDays());
 
-        return new RestLoanResponse(loanResult.isAccepted());
+        return mapper.map(loanResult, RestLoanResponse.class);
     }
 
     @GetMapping("/loans")

@@ -30,6 +30,7 @@ public class LoanContextLoader implements IContextLoader {
     public LoanContext loadNewContext(String clientIP, BigDecimal amount, int termDays) {
 
         LoanContext loanContext = new LoanContext();
+        loanContext.setProcess(LoanContext.Process.NEW);
 
 
         Client client = clientRepository.findByIp(clientIP);
@@ -64,7 +65,7 @@ public class LoanContextLoader implements IContextLoader {
     }
 
     @Override
-    public LoanContext loadExistingContext(Long loanId, int termDays) {
+    public LoanContext loadExtendContext(Long loanId, int termDays) {
 
         Optional<Loan> loanOpt = loanRepository.findById(loanId);
         if(!loanOpt.isPresent()){
@@ -80,6 +81,7 @@ public class LoanContextLoader implements IContextLoader {
         loan.addVersion(newLoanVersion);
 
         LoanContext loanContext = new LoanContext();
+        loanContext.setProcess(LoanContext.Process.EXTENDED);
         loanContext.setLoan(loan);
         loadProductDefinition(loanContext);
 
@@ -98,7 +100,7 @@ public class LoanContextLoader implements IContextLoader {
         loanContext.setInterestFactor(BigDecimal.valueOf(1.25));
         loanContext.setExtensionInterestFactor(BigDecimal.valueOf(1.5));
         loanContext.setExtensionInterestPerPeriodDays(7);
-        loanContext.setRejected(false);
+        loanContext.setAccepted(true);
     }
 
     private void loadCommons(LoanContext loanContext){

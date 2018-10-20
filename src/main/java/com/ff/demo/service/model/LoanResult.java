@@ -3,10 +3,7 @@ package com.ff.demo.service.model;
 
 public class LoanResult {
     private boolean accepted;
-
-    public LoanResult(boolean accepted){
-        this.accepted = accepted;
-    }
+    private String rejectionReason;
 
     public boolean isAccepted() {
         return accepted;
@@ -14,5 +11,13 @@ public class LoanResult {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 }

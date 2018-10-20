@@ -20,7 +20,7 @@ public class LoanPersistenceService implements IPersistenceService {
         Loan loan = loanContext.getLoan();
 
         loan.setLoanStatus(
-                loanContext.isRejected() ? Loan.LoanStatus.REJECTED : Loan.LoanStatus.OPEN
+                loanContext.isAccepted() ? Loan.LoanStatus.OPEN : Loan.LoanStatus.REJECTED
         );
         loanRepository.save(loan);
 

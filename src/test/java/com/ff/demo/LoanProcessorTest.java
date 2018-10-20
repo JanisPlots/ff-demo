@@ -18,19 +18,10 @@ import java.util.Optional;
 
 public class LoanProcessorTest extends BaseSpringTest {
 
-    @Autowired
-    private ILoanProcessor iLoanProcessor;
-
-    @Autowired
-    private LoanRepository loanRepository;
-
-    @Autowired
-    private ClientRepository clientRepository;
-
     @Test
     public void applyAndExtendTest() {
 
-        String clientIp = "0.0.0.0";
+        String clientIp = "1.0.0.0";
         Loan loan = null;
         BigDecimal loanAmount = BigDecimal.valueOf(100);
         {

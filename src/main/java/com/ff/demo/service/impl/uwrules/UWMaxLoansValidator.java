@@ -25,6 +25,11 @@ public class UWMaxLoansValidator implements IUnderwritingRule {
                 .collect(Collectors.toList());
 
 
-        loanContext.setRejected(daysLoans.size() >= loanContext.getMaxLoansPerDay());
+        boolean rejected = daysLoans.size() >= loanContext.getMaxLoansPerDay();
+
+        if(rejected){
+            loanContext.setAccepted(false);
+            loanContext.setRejectionReason("Max loan application per day exceeded");
+        }
     }
 }

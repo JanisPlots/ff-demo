@@ -28,6 +28,9 @@ public class UWTimeValidator implements IUnderwritingRule {
                 timeNow.isAfter(loanContext.getMaxUwTimeMaxAmount()) &&
                 timeNow.isBefore(loanContext.getMinUwTimeMaxAmount());
 
-        loanContext.setRejected(rejected);
+        if(rejected){
+            loanContext.setAccepted(false);
+            loanContext.setRejectionReason("Max loan amount after midnight not allowed");
+        }
     }
 }
